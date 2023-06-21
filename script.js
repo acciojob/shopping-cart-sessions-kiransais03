@@ -21,17 +21,33 @@ function renderProducts() {
   });
 }
 
+let add=document.getElementsByClassName('add-to-cart-btn');
+add.addEventListener("click",addToCart);
+
 // Render cart list
-function renderCart() {}
+function renderCart() {
+	
+}
 
 // Add item to cart
-function addToCart(productId) {}
+function addToCart(event) {
+	let id=event.target.getAttribute('date-id');
+	let products1=products[id-1];
+	let body=document.getElementsByTagName('body');
+	const li1 = document.createElement("li");
+    li1.innerHTML = `${products1.name} - $${products1.price} 
+	body.append(li1);
+}
 
 // Remove item from cart
-function removeFromCart(productId) {}
+function removeFromCart(productId) {
+	
+}
 
 // Clear cart
-function clearCart() {}
+function clearCart() {
+	
+}
 
 // Initial render
 renderProducts();
