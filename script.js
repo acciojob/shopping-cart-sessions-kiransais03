@@ -1,6 +1,8 @@
 // This is the boilerplate code given for you
 // You can modify this code
 // Product data
+
+
 const products = [
   { id: 1, name: "Product 1", price: 10 },
   { id: 2, name: "Product 2", price: 20 },
@@ -9,11 +11,16 @@ const products = [
   { id: 5, name: "Product 5", price: 50 },
 ];
 
-// DOM elements
 const productList = document.getElementById("product-list");
+
+renderProducts();
+renderCart();
+
+// DOM elements
 
 // Render product list
 function renderProducts() {
+  console.log('fdjs')
   products.forEach((product) => {
     const li = document.createElement("li");
     li.innerHTML = `${product.name} - $${product.price} <button class="add-to-cart-btn" data-id="${product.id}">Add to Cart</button>`;
@@ -22,7 +29,7 @@ function renderProducts() {
 }
 
 let add=document.getElementsByClassName('add-to-cart-btn');
-add.addEventListener("click",addToCart);
+Array.from(add).forEach((element)=>{element.addEventListener("click",addToCart);})
 
 // Render cart list
 function renderCart() {
@@ -31,24 +38,33 @@ function renderCart() {
 
 // Add item to cart
 function addToCart(event) {
-	let id=event.target.getAttribute('date-id');
+	let id=parseInt(event.target.getAttribute('data-id'));
 	let products1=products[id-1];
-	let body=document.getElementsByTagName('body');
+  // console.log(products,id,event.target)
+	let cartlist=document.getElementById('cart-list');
 	const li1 = document.createElement("li");
-    li1.innerHTML = `${products1.name} - $${products1.price} 
-	body.append(li1);
+    li1.innerHTML = `${products1.name} - $${products1.price} <button class="remove-from-cart-btn" data-id="${id}">Remove from Cart</button>`;
+	cartlist.append(li1);
+  let remove=document.getElementsByClassName('remove-from-cart-btn');
+  let removebtn=remove[remove.length-1];
+  removebtn.addEventListener("click",removeFromCart)
 }
 
+// let remove=document.getElementsByClassName('remove-from-cart-btn');
+// Array.from(remove).forEach((element)=>{element.addEventListener("click",removeFromCart);})
+
+
 // Remove item from cart
-function removeFromCart(productId) {
-	
+function removeFromCart(event) {
+	let parentNode=event.target.parentNode;
+  parentNode.remove();
 }
 
 // Clear cart
-function clearCart() {
-	
+document.getElementById('clear-cart-btn').addEventListener('click',clearCart)
+function clearCart(event) {
+	let cartlist=document.getElementById('cart-list');
+  cartlist.innerHTML='';
 }
 
 // Initial render
-renderProducts();
-renderCart();
